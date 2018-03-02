@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>&#39;时间戳的转换格式&#39; | 小shuaiの博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天遇到了一个莫名其妙的bug，怀疑了很多地方都没有找到真正原因在哪里，直到最后我一步步剖析才明白，原来是时间戳转换时格式不对  bug场景：    在预约订单的时候我将预约时间存到了vuex里面（2018-03-03 16:00，这是存入的时间），然后将时间转换成时间戳传给后台    1let serverTime = new Date(&apos;2018-03-03 16:00&apos;).getTime">
+  <meta name="description" content="今天遇到了一个莫名其妙的bug，怀疑了很多地方都没有找到真正原因在哪里，直到最后我一步步剖析才明白，原来是时间戳转换时格式不对">
 <meta name="keywords" content="vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="&#39;时间戳的转换格式&#39;">
 <meta property="og:url" content="http://yoursite.com/2018/01/24/时间戳的转换格式/index.html">
 <meta property="og:site_name" content="小shuaiの博客">
-<meta property="og:description" content="今天遇到了一个莫名其妙的bug，怀疑了很多地方都没有找到真正原因在哪里，直到最后我一步步剖析才明白，原来是时间戳转换时格式不对  bug场景：    在预约订单的时候我将预约时间存到了vuex里面（2018-03-03 16:00，这是存入的时间），然后将时间转换成时间戳传给后台    1let serverTime = new Date(&apos;2018-03-03 16:00&apos;).getTime">
-<meta property="og:updated_time" content="2018-03-02T09:32:41.286Z">
+<meta property="og:description" content="今天遇到了一个莫名其妙的bug，怀疑了很多地方都没有找到真正原因在哪里，直到最后我一步步剖析才明白，原来是时间戳转换时格式不对">
+<meta property="og:updated_time" content="2018-03-02T09:34:40.061Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="&#39;时间戳的转换格式&#39;">
-<meta name="twitter:description" content="今天遇到了一个莫名其妙的bug，怀疑了很多地方都没有找到真正原因在哪里，直到最后我一步步剖析才明白，原来是时间戳转换时格式不对  bug场景：    在预约订单的时候我将预约时间存到了vuex里面（2018-03-03 16:00，这是存入的时间），然后将时间转换成时间戳传给后台    1let serverTime = new Date(&apos;2018-03-03 16:00&apos;).getTime">
+<meta name="twitter:description" content="今天遇到了一个莫名其妙的bug，怀疑了很多地方都没有找到真正原因在哪里，直到最后我一步步剖析才明白，原来是时间戳转换时格式不对">
   
     <link rel="alternative" href="/atom.xml" title="小shuaiの博客" type="application/atom+xml">
   
@@ -170,7 +170,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>  今天遇到了一个莫名其妙的bug，怀疑了很多地方都没有找到真正原因在哪里，直到最后我一步步剖析才明白，原来是时间戳转换时格式不对<br>  bug场景：<br>    在预约订单的时候我将预约时间存到了vuex里面（2018-03-03 16:00，这是存入的时间），然后将时间转换成时间戳传给后台<br>    <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> serverTime = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2018-03-03 16:00'</span>).getTime();</span><br></pre></td></tr></table></figure></p>
+        <p>  今天遇到了一个莫名其妙的bug，怀疑了很多地方都没有找到真正原因在哪里，直到最后我一步步剖析才明白，原来是时间戳转换时格式不对<br>  <a id="more"></a><br>  bug场景：<br>    在预约订单的时候我将预约时间存到了vuex里面（2018-03-03 16:00，这是存入的时间），然后将时间转换成时间戳传给后台<br>    <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> serverTime = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2018-03-03 16:00'</span>).getTime();</span><br></pre></td></tr></table></figure></p>
 <p>   在电脑的谷歌浏览器上调试的时候是可以转换成时间戳的，当时也没在意什么，结果在手机上运行的时候就出现问题了，后台那里得到的时间戳是’0’。<br>   我一直在以为是vuex在手机上不兼容的问题（原谅我还是个小白刚学的vuex），因为电脑上是正常的有值的。换了localStorage存储以后还是0，才知道问题不在这里。最后在页面中打印了serverTime以后才看到值为NaN，当我设置serverTime等于当前时间时<br>     <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> serverTime = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br></pre></td></tr></table></figure></p>
 <p>  手机上Date是有值的，进一步排除Date在浏览器中的兼容性，那么就一定是Date的参数写错了。百度了下别人的时间格式都是2018/03/03 16:00.所以我换了格式，这才生成时间戳。<br>  因为我是引用的VUX的组件，组件里选取后的时间格式就是2018-03-03 16:00这种的，在电脑上调试也没出问题就没有在意格式问题，看来还是要养成一个良好的书写格式的习惯，才能避免一些奇奇怪怪的bug。</p>
 
