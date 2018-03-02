@@ -167,9 +167,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>  今天遇到了一个莫名其妙的bug，怀疑了很多地方都没有找到真正原因在哪里，直到最后我一步步剖析才明白，原来是时间戳转换时格式不对<br>  bug场景：<br>    在预约订单的时候我将预约时间存到了vuex里面（2018-03-03 16:00，这是存入的时间），然后将时间转换成时间戳传给后台<br>    <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> serverTime = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2018-03-03 16:00'</span>).getTime();</span><br></pre></td></tr></table></figure></p>
-<pre><code>在电脑的谷歌浏览器上调试的时候是可以转换成时间戳的，当时也没在意什么，结果在手机上运行的时候就出现问题了，后台那里得到的时间戳是&apos;0&apos;。
+        <p>  今天遇到了一个莫名其妙的bug，怀疑了很多地方都没有找到真正原因在哪里，直到最后我一步步剖析才明白，原来是时间戳转换时格式不对<br>  bug场景：<br>    在预约订单的时候我将预约时间存到了vuex里面（2018-03-03 16:00，这是存入的时间），然后将时间转换成时间戳传给后台</p>
+<pre><code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> serverTime = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2018-03-03 16:00'</span>).getTime();</span><br></pre></td></tr></table></figure>
+
+在电脑的谷歌浏览器上调试的时候是可以转换成时间戳的，当时也没在意什么，结果在手机上运行的时候就出现问题了，后台那里得到的时间戳是&apos;0&apos;。
 我一直在以为是vuex在手机上不兼容的问题（原谅我还是个小白刚学的vuex），因为电脑上是正常的有值的。换了localStorage存储以后还是0，才知道问题不在这里。最后在页面中打印了serverTime以后才看到值为NaN，当我设置serverTime等于当前时间时
+
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> serverTime = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br></pre></td></tr></table></figure>
 
 手机上Date是有值的，进一步排除Date在浏览器中的兼容性，那么就一定是Date的参数写错了。百度了下别人的时间格式都是2018/03/03 16:00.所以我换了格式，这才生成时间戳。
