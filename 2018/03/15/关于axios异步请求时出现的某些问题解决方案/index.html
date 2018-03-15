@@ -6,19 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>&#39;时间戳的转换格式&#39; | 小shuaiの博客</title>
+  <title>&#39;关于axios异步请求时出现的某些问题解决方案&#39; | 小shuaiの博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天遇到了一个莫名其妙的bug，怀疑了很多地方都没有找到真正原因在哪里，直到最后我一步步剖析才明白，原来是时间戳转换时格式不对">
-<meta name="keywords" content="vue">
+  <meta name="description" content="axios是一个基于promise的HTTP库，常用语vue框架中的ajax请求  一般在获取数据的时候经常会使用for循环来依次请求相应需要的接口并回调，但是axios的回调函数的异步的，经常会导致回调的内容错乱不与for循环匹配，因场景不同解决方案不同，以下只写出开发中我遇到的问题以及解决方案，如有同样问题的解决方案会在此处更新  1234567for (let y = 0; y &amp;lt;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="&#39;时间戳的转换格式&#39;">
-<meta property="og:url" content="http://yoursite.com/2018/01/24/时间戳的转换格式/index.html">
+<meta property="og:title" content="&#39;关于axios异步请求时出现的某些问题解决方案&#39;">
+<meta property="og:url" content="http://yoursite.com/2018/03/15/关于axios异步请求时出现的某些问题解决方案/index.html">
 <meta property="og:site_name" content="小shuaiの博客">
-<meta property="og:description" content="今天遇到了一个莫名其妙的bug，怀疑了很多地方都没有找到真正原因在哪里，直到最后我一步步剖析才明白，原来是时间戳转换时格式不对">
-<meta property="og:updated_time" content="2018-03-02T09:34:40.061Z">
+<meta property="og:description" content="axios是一个基于promise的HTTP库，常用语vue框架中的ajax请求  一般在获取数据的时候经常会使用for循环来依次请求相应需要的接口并回调，但是axios的回调函数的异步的，经常会导致回调的内容错乱不与for循环匹配，因场景不同解决方案不同，以下只写出开发中我遇到的问题以及解决方案，如有同样问题的解决方案会在此处更新  1234567for (let y = 0; y &amp;lt;">
+<meta property="og:updated_time" content="2018-03-15T06:55:29.367Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="&#39;时间戳的转换格式&#39;">
-<meta name="twitter:description" content="今天遇到了一个莫名其妙的bug，怀疑了很多地方都没有找到真正原因在哪里，直到最后我一步步剖析才明白，原来是时间戳转换时格式不对">
+<meta name="twitter:title" content="&#39;关于axios异步请求时出现的某些问题解决方案&#39;">
+<meta name="twitter:description" content="axios是一个基于promise的HTTP库，常用语vue框架中的ajax请求  一般在获取数据的时候经常会使用for循环来依次请求相应需要的接口并回调，但是axios的回调函数的异步的，经常会导致回调的内容错乱不与for循环匹配，因场景不同解决方案不同，以下只写出开发中我遇到的问题以及解决方案，如有同样问题的解决方案会在此处更新  1234567for (let y = 0; y &amp;lt;">
   
     <link rel="alternative" href="/atom.xml" title="小shuaiの博客" type="application/atom+xml">
   
@@ -150,29 +149,27 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-时间戳的转换格式" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-关于axios异步请求时出现的某些问题解决方案" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      &#39;时间戳的转换格式&#39;
+      &#39;关于axios异步请求时出现的某些问题解决方案&#39;
     </h1>
   
 
         
-        <a href="/2018/01/24/时间戳的转换格式/" class="archive-article-date">
-  	<time datetime="2018-01-24T09:15:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-24</time>
+        <a href="/2018/03/15/关于axios异步请求时出现的某些问题解决方案/" class="archive-article-date">
+  	<time datetime="2018-03-15T06:38:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-15</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>  今天遇到了一个莫名其妙的bug，怀疑了很多地方都没有找到真正原因在哪里，直到最后我一步步剖析才明白，原来是时间戳转换时格式不对<br>  <a id="more"></a><br>  bug场景：<br>    在预约订单的时候我将预约时间存到了vuex里面（2018-03-03 16:00，这是存入的时间），然后将时间转换成时间戳传给后台<br>    <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> serverTime = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2018-03-03 16:00'</span>).getTime();</span><br></pre></td></tr></table></figure></p>
-<p>   在电脑的谷歌浏览器上调试的时候是可以转换成时间戳的，当时也没在意什么，结果在手机上运行的时候就出现问题了，后台那里得到的时间戳是’0’。<br>   我一直在以为是vuex在手机上不兼容的问题（原谅我还是个小白刚学的vuex），因为电脑上是正常的有值的。换了localStorage存储以后还是0，才知道问题不在这里。最后在页面中打印了serverTime以后才看到值为NaN，当我设置serverTime等于当前时间时<br>     <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> serverTime = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br></pre></td></tr></table></figure></p>
-<p>  手机上Date是有值的，进一步排除Date在浏览器中的兼容性，那么就一定是Date的参数写错了。百度了下别人的时间格式都是2018/03/03 16:00.所以我换了格式，这才生成时间戳。<br>  因为我是引用的VUX的组件，组件里选取后的时间格式就是2018-03-03 16:00这种的，在电脑上调试也没出问题就没有在意格式问题，看来还是要养成一个良好的书写格式的习惯，才能避免一些奇奇怪怪的bug。</p>
+        <p>  axios是一个基于promise的HTTP库，常用语vue框架中的ajax请求<br>  一般在获取数据的时候经常会使用for循环来依次请求相应需要的接口并回调，但是axios的回调函数的异步的，经常会导致回调的内容错乱不与for循环匹配，因场景不同解决方案不同，以下只写出开发中我遇到的问题以及解决方案，如有同样问题的解决方案会在此处更新<br>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> y = <span class="number">0</span>; y &lt; <span class="keyword">this</span>.couponCids.length; y += <span class="number">1</span>) &#123;</span><br><span class="line">  <span class="keyword">this</span>.http.get(<span class="keyword">this</span>.api + <span class="string">'/v1/coupon/'</span> + <span class="keyword">this</span>.couponCids[y]).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.options.push(res.data.data);</span><br><span class="line">    <span class="keyword">this</span>.options[y].startDate = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="keyword">this</span>.options[y].startDate).toLocaleDateString().split(<span class="string">'/'</span>).join(<span class="string">'-'</span>);</span><br><span class="line">    <span class="keyword">this</span>.options[y].endDate = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="keyword">this</span>.options[y].endDate).toLocaleDateString().split(<span class="string">'/'</span>).join(<span class="string">'-'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
 
@@ -202,17 +199,6 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
@@ -263,7 +249,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/01/24/时间戳的转换格式/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/03/15/关于axios异步请求时出现的某些问题解决方案/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -277,18 +263,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/03/15/关于axios异步请求时出现的某些问题解决方案/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          &#39;关于axios异步请求时出现的某些问题解决方案&#39;
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/01/17/难道培训出来的人在IT行业真的不受欢迎吗/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">难道培训出来的人在IT行业真的不受欢迎吗？</div>
+    <a href="/2018/01/24/时间戳的转换格式/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">&#39;时间戳的转换格式&#39;</div>
       <i class="icon-circle-right"></i>
     </a>
   

@@ -147,6 +147,69 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-关于axios异步请求时出现的某些问题解决方案" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/15/关于axios异步请求时出现的某些问题解决方案/">&#39;关于axios异步请求时出现的某些问题解决方案&#39;</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/15/关于axios异步请求时出现的某些问题解决方案/" class="archive-article-date">
+  	<time datetime="2018-03-15T06:38:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>  axios是一个基于promise的HTTP库，常用语vue框架中的ajax请求<br>  一般在获取数据的时候经常会使用for循环来依次请求相应需要的接口并回调，但是axios的回调函数的异步的，经常会导致回调的内容错乱不与for循环匹配，因场景不同解决方案不同，以下只写出开发中我遇到的问题以及解决方案，如有同样问题的解决方案会在此处更新<br>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> y = <span class="number">0</span>; y &lt; <span class="keyword">this</span>.couponCids.length; y += <span class="number">1</span>) &#123;</span><br><span class="line">  <span class="keyword">this</span>.http.get(<span class="keyword">this</span>.api + <span class="string">'/v1/coupon/'</span> + <span class="keyword">this</span>.couponCids[y]).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.options.push(res.data.data);</span><br><span class="line">    <span class="keyword">this</span>.options[y].startDate = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="keyword">this</span>.options[y].startDate).toLocaleDateString().split(<span class="string">'/'</span>).join(<span class="string">'-'</span>);</span><br><span class="line">    <span class="keyword">this</span>.options[y].endDate = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="keyword">this</span>.options[y].endDate).toLocaleDateString().split(<span class="string">'/'</span>).join(<span class="string">'-'</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/15/关于axios异步请求时出现的某些问题解决方案/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-时间戳的转换格式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
